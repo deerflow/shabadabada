@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head> </head>
+    <body>
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <h1>Chabadabada</h1>
+            <img src="https://cdn-icons-png.flaticon.com/512/2/2227.png" alt="Clé de sol" style="max-width: 200px" />
+            <button
+                id="word-button"
+                style="
+                    margin-top: 1rem;
+                    border: none;
+                    background-color: black;
+                    padding: 1rem;
+                    color: white;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 1.25rem;
+                "
+            >
+                Give me the word !
+            </button>
+            <h1 id="word" style="font-size: 3rem; margin-top: 3rem"></h2>
+        </div>
+    </body>
+    <script defer>
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+        const button = document.getElementById('word-button');
+        const word = document.getElementById('word');
+
+        button.addEventListener('click', async e => {
+            word.innerText = '3';
+            e.preventDefault();
+            const res = await fetch('/word');
+            const text = await res.text();
+            await sleep(1000);
+            word.innerText = '2';
+            await sleep(1000);
+            word.innerText = '1';
+            await sleep(1000);
+            word.innerText = `${text} !`;
+        });
+    </script>
+</html>
