@@ -1,44 +1,61 @@
 <!doctype html>
 <html>
-    <head> </head>
+    <head>
+        <style>
+            #word-button {
+                margin-top: 1rem;
+                border: none;
+                background-color: black;
+                padding: 1rem;
+                color: white;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 1.25rem;
+                transition: all 1s;
+            }
+
+            #word-button:disabled {
+                background-color: rgb(139, 138, 138);
+                cursor: wait;
+            }
+        </style>
+    </head>
     <body>
         <div style="display: flex; flex-direction: column; align-items: center">
             <h1>Chabadabada</h1>
             <img src="https://cdn-icons-png.flaticon.com/512/2/2227.png" alt="Clé de sol" style="max-width: 200px" />
-            <button
-                id="word-button"
-                style="
-                    margin-top: 1rem;
-                    border: none;
-                    background-color: black;
-                    padding: 1rem;
-                    color: white;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    font-size: 1.25rem;
-                "
-            >
-                Give me the word !
-            </button>
-            <h1 id="word" style="font-size: 3rem; margin-top: 3rem"></h2>
+            <p id="number-of-words" style="margin-top: 2rem; font-family: sans-serif; color: rgb(139, 138, 138)">
+                This site contains ... words/sentences.
+            </p>
+            <button disabled id="word-button">Give me the word !</button>
+            <h1 id="word" style="font-size: 3rem; margin-top: 3rem"></h1>
         </div>
     </body>
     <script defer>
-        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
         const button = document.getElementById('word-button');
         const word = document.getElementById('word');
+        const numberOfWords = document.getElementById('number-of-words');
 
-        button.addEventListener('click', async e => {
-            word.innerText = '3';
-            e.preventDefault();
-            const res = await fetch('/word');
-            const text = await res.text();
-            await sleep(1000);
-            word.innerText = '2';
-            await sleep(1000);
-            word.innerText = '1';
-            await sleep(1000);
-            word.innerText = `${text} !`;
-        });
+        const init = async () => {
+            const res = await fetch('/sentences');
+            const sentences = await res.json();
+            numberOfWords.innerText = `This site contains ${sentences.length} words/sentences.`;
+
+            button.addEventListener('click', async e => {
+                e.preventDefault();
+                word.innerText = 'And the word is ...';
+                await sleep(1000);
+                const randomIndex = Math.floor(Math.random() * sentences.length);
+                const chosenWord = sentences[randomIndex];
+                const capitalizedWord = `${chosenWord.charAt(0).toUpperCase()}${chosenWord.slice(1)}`;
+                word.innerText = `${capitalizedWord} !`;
+                sentences.splice(randomIndex, 1);
+            });
+
+            button.disabled = false;
+        };
+
+        init();
     </script>
 </html>

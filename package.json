@@ -4,8 +4,9 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "dev": "nodemon --watch public --exec tsx main.ts",
-        "start": "tsx main.ts"
+        "dev": "nodemon --ext ts,html,csv --exec tsx main.ts",
+        "start": "tsx main.ts",
+        "formatWords": "tsx formatWords.ts"
     },
     "keywords": [],
     "author": "",
@@ -16,6 +17,7 @@
     },
     "devDependencies": {
         "@types/koa": "^3.0.3",
+        "@types/node": "^26.1.0",
         "nodemon": "^3.1.14",
         "prettier": "^3.9.4",
         "tsx": "^4.23.0"
