@@ -4,9 +4,11 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "dev": "nodemon --ext ts,html,csv --exec tsx main.ts",
-        "start": "tsx main.ts",
-        "formatWords": "tsx formatWords.ts"
+        "dev": "nodemon --ext ts,html,csv --exec tsx src/main.ts",
+        "start": "tsx src/main.ts",
+        "format": "tsx scripts/formatWords.ts",
+        "docker-build": "docker build -t chabadabada .",
+        "docker-run": "docker run -p 3000:3000 chabadabada"
     },
     "keywords": [],
     "author": "",

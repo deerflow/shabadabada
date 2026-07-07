@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const sentencesPath = path.join(__dirname, 'words.csv');
+const sentencesPath = path.join(__dirname, '../src/words.csv');
 
 const text: string = fs.readFileSync(sentencesPath, { encoding: 'utf8' });
 const sentences = text

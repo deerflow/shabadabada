@@ -2,8 +2,6 @@ FROM node:22
 WORKDIR /app
 COPY package.json .
 RUN npm i
-COPY main.ts .
-COPY index.html .
-COPY words.csv .
+COPY src src
 EXPOSE 3000
 CMD npm start

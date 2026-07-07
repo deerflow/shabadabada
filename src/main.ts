@@ -2,7 +2,7 @@ import fs from 'fs';
 import fastify from 'fastify';
 import path from 'path';
 
-const text = fs.readFileSync('./words.csv', { encoding: 'ascii' });
+const text = fs.readFileSync(path.join(__dirname, 'words.csv'), { encoding: 'ascii' });
 const sentences = text
     .replaceAll('\n', '')
     .split(',')
